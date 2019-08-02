@@ -9,7 +9,6 @@
 "       History:
 " =============================================================================
 source ~/.vim/vundles.vim
-filetype plugin indent on
 syntax on
 
 " UI
@@ -36,6 +35,7 @@ map <leader>t :silent! TagbarToggle<CR>
 
 " Basic Setting
 " ------
+let filetype_i = "cpp" " change progress filetype to cpp for mysql code
 set pastetoggle=<F10>
 set encoding=utf-8
 set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
@@ -82,6 +82,10 @@ nnoremap ; :
 
 " Auto Command
 " ------
+augroup filetypedetect
+    autocmd BufRead,BufNewFile *.ic  setf cpp
+    autocmd BufRead,BufNewFile *.i  setf cpp
+augroup END
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4 textwidth=120
 autocmd BufReadPost *
       \ if ! exists("g:leave_my_cursor_position_alone") |
@@ -90,7 +94,6 @@ autocmd BufReadPost *
       \     endif |
       \ endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif "离开插入模式后自动关闭预览窗口
-autocmd BufRead,BufNewFile *.ic  setfiletype c
 
 """"""""""""""""""""""""""""""""""Plugins Settings""""""""""""""""""""""""""""""""""
 
@@ -172,9 +175,9 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode=0
 let g:ctrlp_match_window_bottom=1
-let g:ctrlp_max_height=4
+let g:ctrlp_max_height=6
 let g:ctrlp_match_window_reversed=0
-let g:ctrlp_mruf_max=3
+let g:ctrlp_mruf_max=5
 let g:ctrlp_follow_symlinks=1
 " ------
 
@@ -195,7 +198,7 @@ nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 set cst " 同时搜索ctags标签文件和cscope数据库
 set cscopetagorder=1
-cs add $CSCOPE_DB
+cs add ./cscope.out
 " ------
 
 "----------------------------------+--"
@@ -225,7 +228,10 @@ inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDow
 inoremap <expr> <PageUp> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 nmap <F5> :YcmForceCompileAndDiagnostics<CR>
 "let g:ycm_show_diagnostics_ui = 0 " 关闭ycm错误检查
-
+let g:ycm_semantic_triggers =  {
+  \   'c' : ['->', '.'],
+  \   'cpp' : ['->', '.', '::'],
+  \ }
 let g:ycm_complete_in_comments = 1 "在注释输入中也能补全
 let g:ycm_complete_in_strings = 1 "在字符串输入中也能补全
 let g:ycm_collect_identifiers_from_comments_and_strings = 0  "注释和字符串中的文字也会被收入补全
@@ -236,3 +242,26 @@ let g:ycm_seed_identifiers_with_syntax=1 " 语法关键字补全
 let g:syntastic_cpp_compiler = 'g++' " change the compiler to g++ to support c++11.
 let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++' " set the options of g++ to suport c++11.
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_server_python_interpreter='/usr/local/bin/python3'
+let g:ycm_python_binary_path='/usr/local/bin/python3'
+let g:ycm_filetype_whitelist = {
+    \ 'c': 1,
+    \ 'cpp': 1,
+    \ 'python': 1,
+    \ 'sh':1
+      \}
+let g:ycm_filetype_blacklist = {
+      \ 'tagbar': 1,
+      \ 'notes': 1,
+      \ 'markdown': 1,
+      \ 'netrw': 1,
+      \ 'unite': 1,
+      \ 'text': 1,
+      \ 'vimwiki': 1,
+      \ 'pandoc': 1,
+      \ 'infolog': 1,
+      \ 'ctrlp': 1,
+      \ 'nerdtree': 1,
+      \ 'vim': 1,
+      \ 'mail': 1
+      \}

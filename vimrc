@@ -13,6 +13,7 @@ syntax on
 
 " UI
 " ------
+set background=dark
 colorscheme gruvbox
 
 " Basic Keybinding
@@ -32,6 +33,7 @@ map <leader><space> :FixWhitespace<cr>
 map <leader>f :CtrlPMRU<CR>
 map <leader>n :silent! NERDTreeToggle<CR>
 map <leader>t :silent! TagbarToggle<CR>
+map <leader>i :rightb vert term <CR>
 
 " Basic Setting
 " ------
@@ -56,7 +58,7 @@ set t_Co=256                   " Explicitly tell vim that the terminal has 256 c
 set mouse=a                    " use mouse in all modes
 set report=0                   " always report number of lines changed                "
 set nowrap                     " dont wrap lines
-set scrolloff=0                " 20 lines above/below cursor when scrolling
+set scrolloff=3                " 20 lines above/below cursor when scrolling
 set number                     " show line numbers
 " set relativenumber           " show relativenumber
 set showmatch                  " show matching bracket (briefly jump)
@@ -66,7 +68,7 @@ set laststatus=2               " use 2 lines for the status bar
 set matchtime=2                " show matching bracket for 0.2 seconds
 set directory=~/.vim/tmp       " move swp file to /tmp
 set autoindent
-set expandtab				   " expand tab to space
+"set expandtab				   " expand tab to space
 set smartindent     		   " indent when
 set tabstop=4       		   " tab width
 set softtabstop=4   		   " backspace
@@ -130,6 +132,8 @@ let g:tagbar_left=0
 let g:tagbar_width=40
 let g:tagbar_sort = 0
 let g:tagbar_compact = 1
+let g:tagbar_autoclose=1
+let g:tagbar_autofocus=1
 " ------
 
 " Ack
@@ -147,14 +151,15 @@ let NERDTreeWinPos = "left"
 
 " Nerd Commentor
 " ------
-let NERDSpaceDelims=1
+let NERDSpaceDelims=0
+let g:NERDCustomDelimiters = { 'cpp': { 'left': '/** ', 'right': ' */', 'leftAlt': '// ' }, 'c': { 'left': '/**', 'right': '*/' }}
 " ------
 
 " Authorinfo
 " ------
 let g:vimrc_author='LiuYangming'
-let g:vimrc_email='sdwhlym@gmail.com'
-let g:vimrc_homepage='http://yummyliu.github.io'
+let g:vimrc_email='liuyangming@kingsoft.com'
+" let g:vimrc_homepage='http://yummyliu.github.io'
 nmap <F4> :AuthorInfoDetect<cr>
 " ------
 
@@ -162,6 +167,14 @@ nmap <F4> :AuthorInfoDetect<cr>
 " ------
 let g:Powerline_theme = 'solarized256'
 let g:Powerline_colorscheme = 'solarized256'
+" ------
+
+" autosave
+" ------
+let g:auto_save = 1
+let g:auto_save_in_insert_mode = 0
+let g:auto_save_events = ["InsertLeave", "TextChanged", "BufWrite"]
+let g:auto_save_no_updatetime = 1
 " ------
 
 " ctrlp
@@ -175,9 +188,9 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode=0
 let g:ctrlp_match_window_bottom=1
-let g:ctrlp_max_height=6
+let g:ctrlp_max_height=16
 let g:ctrlp_match_window_reversed=0
-let g:ctrlp_mruf_max=5
+let g:ctrlp_mruf_max=15
 let g:ctrlp_follow_symlinks=1
 " ------
 
@@ -227,7 +240,8 @@ inoremap <expr> <Up> pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 nmap <F5> :YcmForceCompileAndDiagnostics<CR>
-"let g:ycm_show_diagnostics_ui = 0 " 关闭ycm错误检查
+let g:ycm_show_diagnostics_ui = 0 " 关闭ycm错误检查
+let g:ycm_max_diagnostics_to_display = 0
 let g:ycm_semantic_triggers =  {
   \   'c' : ['->', '.'],
   \   'cpp' : ['->', '.', '::'],
@@ -242,8 +256,8 @@ let g:ycm_seed_identifiers_with_syntax=1 " 语法关键字补全
 let g:syntastic_cpp_compiler = 'g++' " change the compiler to g++ to support c++11.
 let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++' " set the options of g++ to suport c++11.
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_server_python_interpreter='/usr/local/bin/python3'
-let g:ycm_python_binary_path='/usr/local/bin/python3'
+let g:ycm_server_python_interpreter='/usr/bin/python36'
+let g:ycm_python_binary_path='/usr/bin/python36'
 let g:ycm_filetype_whitelist = {
     \ 'c': 1,
     \ 'cpp': 1,
@@ -265,3 +279,27 @@ let g:ycm_filetype_blacklist = {
       \ 'vim': 1,
       \ 'mail': 1
       \}
+
+
+"----------------------------------+--"
+"------------代码语法检查----------|--"
+"----------------------------------v--"
+
+" syntastic
+" ------
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" 
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+
+
+
+"----------------------------------+--"
+"------------内嵌Termdebug调试-----|--"
+"----------------------------------v--"
+packadd termdebug
+let g:termdebug_wide = 1 " debug vertical split

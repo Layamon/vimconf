@@ -52,7 +52,6 @@ All plugins are listed in file `vundles.vim` with detailed comments, just add pl
 3. `:PluginInstall!` to upgrade all plugins
 
 Other configurations are also well organized in vimrc.
-
 ## Known issues
 
 * Compeletions are not well supported for statically typed languages(c/c++)

@@ -42,10 +42,7 @@ HEADER_EXTENSIONS = [
         ]
 
 HEADER_DIRECTORIES = [
-		'/Users/liuyangming/NestDB/storage/innobase/include',
-		'/Users/liuyangming/NestDB/sql',
-        '/Users/liuyangming/NestDB/boost/boost_1_59_0/boost',
-        '/Users/liuyangming/NestDB/include'
+
         ]
 
 def IsHeaderFile(filename):

@@ -19,6 +19,17 @@ Compile Vim with `--enable-pythoninterp` and `--enable-rubyinterp` to enable pow
 ```bash
 brew install ack ctags cscope               # OS X
 ```
+ctags推荐使用universal-ctags，直接源码安装:
+
+```
+git clone https://github.com/universal-ctags/ctags.git
+cd ctags
+./autogen.sh 
+./configure
+make
+sudo make install
+```
+
 ## Installation
 
 1. Backup your old vim configuration files:
@@ -38,5 +49,7 @@ brew install ack ctags cscope               # OS X
 4. Install bundles. Launch vim(ignore the errors and they will disappear after installing needed plugins)and run:
 
         :PluginInstall
+        
+      
 
 Thst's it!

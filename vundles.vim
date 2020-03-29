@@ -13,7 +13,7 @@ Plugin 'SirVer/ultisnips'
 
 " Fast editing
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'vim-scripts/AuthorInfo'
+"Plugin 'vim-scripts/AuthorInfo'
 
 " IDE features
 Plugin 'scrooloose/nerdtree'
@@ -22,9 +22,10 @@ Plugin 'mileszs/ack.vim'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'Yggdroot/LeaderF'
 
 " Other Utils
-Plugin 'bronson/vim-trailing-whitespace' "<leader>+space 一键删除行尾空格
+"Plugin 'bronson/vim-trailing-whitespace' "<leader>+space 一键删除行尾空格
 Plugin 'morhetz/gruvbox'
 
 " Golang

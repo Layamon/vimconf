@@ -15,6 +15,7 @@ syntax on
 " ------
 set background=dark
 colorscheme gruvbox
+"colorscheme isotake
 
 " Basic Keybinding
 " ------
@@ -30,7 +31,8 @@ nmap <c-l> <c-w>l
 let mapleader=";"
 map <leader>a :Ack
 map <leader><space> :FixWhitespace<cr>
-map <leader>f :CtrlPMRU<CR>
+"map <leader>f :CtrlPMRU<CR>
+"map <leader>p :CtrlP<CR>
 map <leader>n :silent! NERDTreeToggle<CR>
 map <leader>t :silent! TagbarToggle<CR>
 map <leader>i :rightb vert term <CR>
@@ -128,7 +130,7 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " Tagbar
 " ------
-let g:tagbar_left=0
+let g:tagbar_left=1
 let g:tagbar_width=40
 let g:tagbar_sort = 0
 let g:tagbar_compact = 1
@@ -146,7 +148,7 @@ let g:ackprg = 'ack -s -H --nogroup --column'
 let NERDTreeWinSize=20
 let NERDTreeChDirMode=2
 let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
-let NERDTreeWinPos = "left"
+let NERDTreeWinPos = "right"
 " ------
 
 " Nerd Commentor
@@ -179,19 +181,20 @@ let g:auto_save_no_updatetime = 1
 
 " ctrlp
 " ------
-set wildignore+=*/tmp/*,*.so,*.o,*.a,*.obj,*.swp,*.zip,*.pyc,*.pyo,*.class,.DS_Store  " MacOSX/Linux
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode=0
-let g:ctrlp_match_window_bottom=1
-let g:ctrlp_max_height=16
-let g:ctrlp_match_window_reversed=0
-let g:ctrlp_mruf_max=15
-let g:ctrlp_follow_symlinks=1
+"set wildignore+=*/tmp/*,*.so,*.o,*.a,*.obj,*.swp,*.zip,*.pyc,*.pyo,*.class,.DS_Store  " MacOSX/Linux
+"let g:ctrlp_custom_ignore = {
+"  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+"  \ 'file': '\v\.(exe|so|dll)$',
+"  \ 'link': 'some_bad_symbolic_links',
+"  \ }
+"let g:ctrlp_cmd = 'CtrlP'
+"let g:ctrlp_working_path_mode=0
+"let g:ctrlp_match_window_bottom=1
+"let g:ctrlp_max_height=16
+"let g:ctrlp_match_window_reversed=0
+"let g:ctrlp_mruf_max=15
+"let g:ctrlp_follow_symlinks=1
+"let g:ctrlp_user_command = 'find . -type f -name %s'
 " ------
 
 "----------------------------------+--"
@@ -256,8 +259,8 @@ let g:ycm_seed_identifiers_with_syntax=1 " 语法关键字补全
 let g:syntastic_cpp_compiler = 'g++' " change the compiler to g++ to support c++11.
 let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++' " set the options of g++ to suport c++11.
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_server_python_interpreter='/usr/bin/python36'
-let g:ycm_python_binary_path='/usr/bin/python36'
+let g:ycm_server_python_interpreter='/home/liuyangming/.pyenv/shims/python'
+let g:ycm_python_binary_path='/home/liuyangming/.pyenv/shims/python'
 let g:ycm_filetype_whitelist = {
     \ 'c': 1,
     \ 'cpp': 1,
@@ -303,3 +306,39 @@ let g:ycm_filetype_blacklist = {
 "----------------------------------v--"
 packadd termdebug
 let g:termdebug_wide = 1 " debug vertical split
+
+
+"----------------------------------+--"
+"------------LeaderF 查找----------|--"
+"----------------------------------v--"
+" don't show the help in normal mode
+let g:Lf_HideHelp = 1
+let g:Lf_UseCache = 0
+let g:Lf_UseVersionControlTool = 0
+let g:Lf_IgnoreCurrentBufferName = 1
+" popup mode
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewInPopup = 1
+let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
+let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
+
+let g:Lf_ShortcutF = "<leader>ff"
+noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
+noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+
+noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
+noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+" search visually selected text literally
+xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+noremap go :<C-U>Leaderf! rg --recall<CR>
+
+" should use `Leaderf gtags --update` first
+let g:Lf_GtagsAutoGenerate = 0
+let g:Lf_Gtagslabel = 'native-pygments'
+noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>fo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
+noremap <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>

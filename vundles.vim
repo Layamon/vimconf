@@ -17,7 +17,7 @@ Plugin 'scrooloose/nerdcommenter'
 
 " IDE features
 Plugin 'scrooloose/nerdtree'
-Plugin 'majutsushi/tagbar'
+"Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'kien/rainbow_parentheses.vim'

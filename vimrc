@@ -34,7 +34,7 @@ map <leader><space> :FixWhitespace<cr>
 "map <leader>f :CtrlPMRU<CR>
 "map <leader>p :CtrlP<CR>
 map <leader>n :silent! NERDTreeToggle<CR>
-map <leader>t :silent! TagbarToggle<CR>
+"map <leader>t :silent! TagbarToggle<CR>
 map <leader>i :rightb vert term <CR>
 
 " Basic Setting
@@ -128,15 +128,15 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 " ------
 
-" Tagbar
-" ------
-let g:tagbar_left=1
-let g:tagbar_width=40
-let g:tagbar_sort = 0
-let g:tagbar_compact = 1
-let g:tagbar_autoclose=1
-let g:tagbar_autofocus=1
-" ------
+"" Tagbar
+"" ------
+"let g:tagbar_left=1
+"let g:tagbar_width=40
+"let g:tagbar_sort = 0
+"let g:tagbar_compact = 1
+"let g:tagbar_autoclose=1
+"let g:tagbar_autofocus=1
+"" ------
 
 " Ack
 " ------

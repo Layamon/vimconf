@@ -16,7 +16,7 @@ syntax on
 set background=dark
 colorscheme gruvbox
 "colorscheme isotake
-
+"
 " Basic Keybinding
 " ------
 " clear default keybinding
@@ -31,10 +31,10 @@ nmap <c-l> <c-w>l
 let mapleader=";"
 map <leader>a :Ack
 map <leader><space> :FixWhitespace<cr>
-"map <leader>f :CtrlPMRU<CR>
+map <leader>p :CtrlPMRU<CR>
 "map <leader>p :CtrlP<CR>
 map <leader>n :silent! NERDTreeToggle<CR>
-"map <leader>t :silent! TagbarToggle<CR>
+map <leader>t :silent! TagbarToggle<CR>
 map <leader>i :rightb vert term <CR>
 
 " Basic Setting
@@ -70,7 +70,7 @@ set laststatus=2               " use 2 lines for the status bar
 set matchtime=2                " show matching bracket for 0.2 seconds
 set directory=~/.vim/tmp       " move swp file to /tmp
 set autoindent
-"set expandtab				   " expand tab to space
+set expandtab				   " expand tab to space
 set smartindent     		   " indent when
 set tabstop=4       		   " tab width
 set softtabstop=4   		   " backspace
@@ -128,15 +128,15 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 " ------
 
-"" Tagbar
-"" ------
-"let g:tagbar_left=1
-"let g:tagbar_width=40
-"let g:tagbar_sort = 0
-"let g:tagbar_compact = 1
+" Tagbar
+" ------
+let g:tagbar_left=1
+let g:tagbar_width=40
+let g:tagbar_sort = 0
+let g:tagbar_compact = 1
 "let g:tagbar_autoclose=1
-"let g:tagbar_autofocus=1
-"" ------
+let g:tagbar_autofocus=1
+" ------
 
 " Ack
 " ------
@@ -181,20 +181,20 @@ let g:auto_save_no_updatetime = 1
 
 " ctrlp
 " ------
-"set wildignore+=*/tmp/*,*.so,*.o,*.a,*.obj,*.swp,*.zip,*.pyc,*.pyo,*.class,.DS_Store  " MacOSX/Linux
-"let g:ctrlp_custom_ignore = {
-"  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-"  \ 'file': '\v\.(exe|so|dll)$',
-"  \ 'link': 'some_bad_symbolic_links',
-"  \ }
-"let g:ctrlp_cmd = 'CtrlP'
-"let g:ctrlp_working_path_mode=0
-"let g:ctrlp_match_window_bottom=1
-"let g:ctrlp_max_height=16
-"let g:ctrlp_match_window_reversed=0
-"let g:ctrlp_mruf_max=15
-"let g:ctrlp_follow_symlinks=1
-"let g:ctrlp_user_command = 'find . -type f -name %s'
+set wildignore+=*/tmp/*,*.so,*.o,*.a,*.obj,*.swp,*.zip,*.pyc,*.pyo,*.class,.DS_Store  " MacOSX/Linux
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_max_height=16
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_mruf_max=15
+let g:ctrlp_follow_symlinks=1
+let g:ctrlp_user_command = 'find . -type f -name %s'
 " ------
 
 "----------------------------------+--"
@@ -224,9 +224,9 @@ set completeopt=longest,menuone "让Vim的补全菜单行为与一般IDE一致(�
 
 " UltiSnips
 " ------
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+" let g:UltiSnipsExpandTrigger="<Tab>"
+" let g:UltiSnipsJumpForwardTrigger="<Tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 " ------
 
 " YouCompleteMe

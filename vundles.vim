@@ -19,11 +19,11 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
-Plugin 'Lokaltog/vim-powerline'
 Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'ctrlpvim/ctrlp.vim'
+"Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Yggdroot/LeaderF'
 Plugin 'itchyny/lightline.vim'
+Plugin 'octol/vim-cpp-enhanced-highlight'
 
 " Other Utils
 Plugin 'bronson/vim-trailing-whitespace' "<leader>+space 一键删除行尾空格

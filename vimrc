@@ -31,11 +31,10 @@ nmap <c-l> <c-w>l
 let mapleader=";"
 map <leader>a :Ack
 map <leader><space> :FixWhitespace<cr>
-map <leader>p :CtrlPMRU<CR>
-"map <leader>p :CtrlP<CR>
 map <leader>n :silent! NERDTreeToggle<CR>
 map <leader>t :silent! TagbarToggle<CR>
 map <leader>i :rightb vert term <CR>
+map <leader>g :Gdb <CR>
 
 " Basic Setting
 " ------
@@ -61,7 +60,7 @@ set mouse=a                    " use mouse in all modes
 set report=0                   " always report number of lines changed                "
 set nowrap                     " dont wrap lines
 set scrolloff=3                " 20 lines above/below cursor when scrolling
-set number                     " show line numbers
+set nonumber                     " show line numbers
 " set relativenumber           " show relativenumber
 set showmatch                  " show matching bracket (briefly jump)
 set showcmd                    " show typed command in status bar
@@ -72,9 +71,9 @@ set directory=~/.vim/tmp       " move swp file to /tmp
 set autoindent
 set expandtab				   " expand tab to space
 set smartindent     		   " indent when
-set tabstop=4       		   " tab width
-set softtabstop=4   		   " backspace
-set shiftwidth=4    		   " indent width
+set tabstop=2       		   " tab width
+set softtabstop=2   		   " backspace
+set shiftwidth=2    		   " indent width
 " eggcache vim
 nnoremap ; :
 :command W w
@@ -154,7 +153,7 @@ let NERDTreeWinPos = "right"
 " Nerd Commentor
 " ------
 let NERDSpaceDelims=0
-let g:NERDCustomDelimiters = { 'cpp': { 'left': '/** ', 'right': ' */', 'leftAlt': '// ' }, 'c': { 'left': '/**', 'right': '*/' }}
+let g:NERDCustomDelimiters = { 'cpp': { 'left': '// ', 'right': '', 'leftAlt': '// ' }, 'c': { 'left': '/**', 'right': '*/' }}
 " ------
 
 " Authorinfo
@@ -165,10 +164,17 @@ let g:vimrc_email='liuyangming@kingsoft.com'
 nmap <F4> :AuthorInfoDetect<cr>
 " ------
 
-" powerline
+" lightline
 " ------
-let g:Powerline_theme = 'solarized256'
-let g:Powerline_colorscheme = 'solarized256'
+set laststatus=2
+set noshowmode
+let g:lightline = {
+      \ 'colorscheme': 'one',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'relativepath', 'modified', 'method' ] ]
+      \ },
+      \ }
 " ------
 
 " autosave
@@ -181,20 +187,20 @@ let g:auto_save_no_updatetime = 1
 
 " ctrlp
 " ------
-set wildignore+=*/tmp/*,*.so,*.o,*.a,*.obj,*.swp,*.zip,*.pyc,*.pyo,*.class,.DS_Store  " MacOSX/Linux
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode=0
-let g:ctrlp_match_window_bottom=1
-let g:ctrlp_max_height=16
-let g:ctrlp_match_window_reversed=0
-let g:ctrlp_mruf_max=15
-let g:ctrlp_follow_symlinks=1
-let g:ctrlp_user_command = 'find . -type f -name %s'
+"set wildignore+=*/tmp/*,*.so,*.o,*.a,*.obj,*.swp,*.zip,*.pyc,*.pyo,*.class,.DS_Store  " MacOSX/Linux
+"let g:ctrlp_custom_ignore = {
+"  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+"  \ 'file': '\v\.(exe|so|dll)$',
+"  \ 'link': 'some_bad_symbolic_links',
+"  \ }
+"let g:ctrlp_cmd = 'CtrlP'
+"let g:ctrlp_working_path_mode=0
+"let g:ctrlp_match_window_bottom=1
+"let g:ctrlp_max_height=16
+"let g:ctrlp_match_window_reversed=0
+"let g:ctrlp_mruf_max=15
+"let g:ctrlp_follow_symlinks=1
+"let g:ctrlp_user_command = 'find . -type f -name %s'
 " ------
 
 "----------------------------------+--"
@@ -322,7 +328,7 @@ let g:Lf_PreviewInPopup = 1
 let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
 let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 
-let g:Lf_ShortcutF = "<leader>ff"
+let g:Lf_ShortcutF = "<C-P>"
 noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
 noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
 noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
@@ -342,3 +348,12 @@ noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand
 noremap <leader>fo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
 noremap <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
 noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
+
+" cpp highlight
+let c_no_curly_error=1
+let g:cpp_class_scope_highlight = 1
+let g:cpp_posix_standard = 1
+let g:cpp_experimental_simple_template_highlight = 1
+let g:cpp_no_function_highlight = 1
+let g:cpp_concepts_highlight = 1

@@ -9,7 +9,7 @@ Plugin 'gmarik/vundle'
 " Code Completions
 "Plugin 'Valloric/YouCompleteMe'
 Plugin 'honza/vim-snippets'
-"Plugin 'SirVer/ultisnips'
+Plugin 'SirVer/ultisnips'
 
 " Fast editing
 Plugin 'scrooloose/nerdcommenter'

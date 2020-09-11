@@ -13,9 +13,17 @@ syntax on
 
 " UI
 " ------
+"set background=light
 set background=dark
+"set termguicolors     " enable true colors support
+"let ayucolor="mirage" " for mirage version of theme
+"let ayucolor="dark"   " for dark version of theme
+"colorscheme ayu
+colorscheme palenight
 "colorscheme gruvbox
 "colorscheme isotake
+set langmenu=en_US
+let $LANG = 'en_US'
 "
 " Basic Keybinding
 " ------
@@ -30,11 +38,15 @@ nmap <c-l> <c-w>l
 " new leader keybinding
 let mapleader=";"
 map <leader>a :Ack
+map <leader>h :noh<cr>
 map <leader><space> :FixWhitespace<cr>
 map <leader>n :silent! NERDTreeToggle<CR>
 map <leader>t :silent! TagbarToggle<CR>
 map <leader>i :rightb vert term <CR>
 map <leader>g :Gdb <CR>
+map <leader>s :shell <CR>
+map <leader>p :w <CR>
+"map <c-m> :Leaderf mru
 
 " Basic Setting
 " ------
@@ -129,11 +141,11 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " Tagbar
 " ------
-let g:tagbar_left=1
-let g:tagbar_width=40
+let g:tagbar_left=0
+let g:tagbar_width=50
 let g:tagbar_sort = 0
 let g:tagbar_compact = 1
-"let g:tagbar_autoclose=1
+let g:tagbar_autoclose=1
 let g:tagbar_autofocus=1
 " ------
 
@@ -144,7 +156,7 @@ let g:ackprg = 'ack -s -H --nogroup --column'
 
 " Nerd Tree
 " ------
-let NERDTreeWinSize=20
+let NERDTreeWinSize=40
 let NERDTreeChDirMode=2
 let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
 let NERDTreeWinPos = "right"
@@ -209,15 +221,15 @@ let g:auto_save_no_updatetime = 1
 
 " cscope
 " ------
-nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>a :cs find a <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+"nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+"nmap <C-\>a :cs find a <C-R>=expand("<cword>")<CR><CR>
+"nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+"nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+"nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+"nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+"nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+"nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+"nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 set cst " 同时搜索ctags标签文件和cscope数据库
 set cscopetagorder=1
 cs add ./cscope.out
@@ -230,9 +242,9 @@ set completeopt=longest,menuone "让Vim的补全菜单行为与一般IDE一致(�
 
 " UltiSnips
 " ------
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+"let g:UltiSnipsExpandTrigger="<Tab>"
+"let g:UltiSnipsJumpForwardTrigger="<Tab>"
+"let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 " ------
 
 " YouCompleteMe
@@ -240,6 +252,13 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 " 默认的tab/s-tab和UltiSnips冲突
 " 使用Ctrl-n（或者方向键）触发YCM的补全。
 " 使用tab触发snippet的补全。
+
+nmap <C-\>s :YcmCompleter GoToSymbol <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>r :YcmCompleter GoToReferences <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>i :YcmCompleter GoToImprecise <C-R>=expand("<cword>")<CR><CR>
+nmap <C-]> :YcmCompleter GoToDefinition <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>d :YcmCompleter GoToDeclaration <C-R>=expand("<cword>")<CR><CR>
+
 let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
 
@@ -249,24 +268,28 @@ inoremap <expr> <Up> pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 nmap <F5> :YcmForceCompileAndDiagnostics<CR>
-let g:ycm_show_diagnostics_ui = 0 " 关闭ycm错误检查
-let g:ycm_max_diagnostics_to_display = 0
-let g:ycm_semantic_triggers =  {
-  \   'c' : ['->', '.'],
-  \   'cpp' : ['->', '.', '::'],
-  \ }
-let g:ycm_complete_in_comments = 1 "在注释输入中也能补全
-let g:ycm_complete_in_strings = 1 "在字符串输入中也能补全
-let g:ycm_collect_identifiers_from_comments_and_strings = 0  "注释和字符串中的文字也会被收入补全
-let g:ycm_collect_identifiers_from_tags_files=1 " 开启 YCM 基于标签引擎
-let g:ycm_min_num_of_chars_for_completion=2 " 从第2个键入字符就开始罗列匹配项
-let g:ycm_cache_omnifunc=0 " 禁止缓存匹配项,每次都重新生成匹配项
-let g:ycm_seed_identifiers_with_syntax=1 " 语法关键字补全
-let g:syntastic_cpp_compiler = 'g++' " change the compiler to g++ to support c++11.
+"let g:ycm_show_diagnostics_ui = 0 " 关闭ycm错误检查
+"let g:ycm_max_diagnostics_to_display = 0
+"let g:ycm_semantic_triggers =  {
+"  \   'c' : ['->', '.'],
+"  \   'cpp' : ['->', '.', '::'],
+"  \ }
+"let g:ycm_collect_identifiers_from_comments_and_strings = 0  "注释和字符串中的文字也会被收入补全
+autocmd User YcmQuickFixOpened autocmd! ycmquickfix WinLeave
+let g:ycm_auto_hover=''
+"let g:ycm_collect_identifiers_from_tags_files=1 " 开启 YCM 基于标签引擎
+"let g:ycm_min_num_of_chars_for_completion=2 " 从第2个键入字符就开始罗列匹配项
+"let g:ycm_cache_omnifunc=0 " 禁止缓存匹配项,每次都重新生成匹配项
+"let g:ycm_seed_identifiers_with_syntax=1 " 语法关键字补全
+"let g:syntastic_cpp_compiler = 'g++' " change the compiler to g++ to support c++11.
 let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++' " set the options of g++ to suport c++11.
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_server_python_interpreter='/home/liuyangming/.pyenv/shims/python'
-let g:ycm_python_binary_path='/home/liuyangming/.pyenv/shims/python'
+"let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_server_python_interpreter='/Users/bytedance/.pyenv/shims/python'
+let g:ycm_python_binary_path='/Users/bytedance/.pyenv/shims/python'
+let g:ycm_clangd_binary_path = "/usr/local/Cellar/llvm/10.0.1/bin/clangd"
+let g:ycm_clangd_args = ['-log=verbose', '-pretty', '--background-index']
+let g:ycm_clangd_uses_ycmd_caching = 0
+
 let g:ycm_filetype_whitelist = {
     \ 'c': 1,
     \ 'cpp': 1,
@@ -328,10 +351,15 @@ let g:Lf_PreviewInPopup = 1
 let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
 let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 
+let g:Lf_ShowDevIcons = 1
+"let g:Lf_DevIconsFont = "DroidSansMono Nerd Font Mono"
+set ambiwidth=double
+
 let g:Lf_ShortcutF = "<C-P>"
 noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
-"noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
-noremap <C-M> :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+" noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+" <C-M> == <CR> in vi
+noremap <C-K> :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
 noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 
@@ -340,7 +368,6 @@ noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
 " search visually selected text literally
 xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
 noremap go :<C-U>Leaderf! rg --recall<CR>
-
 " should use `Leaderf gtags --update` first
 let g:Lf_GtagsAutoGenerate = 0
 let g:Lf_Gtagslabel = 'native-pygments'
@@ -352,9 +379,32 @@ noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
 
 " cpp highlight
-let c_no_curly_error=1
-let g:cpp_class_scope_highlight = 1
-let g:cpp_posix_standard = 1
-let g:cpp_experimental_simple_template_highlight = 1
+" Disable function highlighting (affects both C and C++ files)
 let g:cpp_no_function_highlight = 1
-let g:cpp_concepts_highlight = 1
+
+" Put all standard C and C++ keywords under Vim's highlight group 'Statement'
+" (affects both C and C++ files)
+let g:cpp_simple_highlight = 1
+
+" Enable highlighting of named requirements (C++20 library concepts)
+"let g:cpp_named_requirements_highlight = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+" Seting clang-format
+"""""""""""""""""""""""""""""""""""""""""""""""
+let g:clang_format#command='/usr/local/bin/clang-format'
+let g:clang_format#code_style='google'
+let g:clang_format#style_options = {
+            \ 'IndentWidth' : '2',
+            \ 'AllowShortIfStatementsOnASingleLine': 'true',
+            \ "AlwaysBreakTemplateDeclarations" : "true",
+            \ "IndentCaseLabels" : "false",
+            \ "Standard" : "C++11"}
+
+" map to <Leader>cf in C++ code
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>f :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><Leader>f :ClangFormat<CR>
+" if you install vim-operator-user
+" autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
+" Toggle auto formatting:
+nmap <Leader>C :ClangFormatAutoToggle<CR>

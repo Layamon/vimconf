@@ -1,5 +1,5 @@
 # Usage
-对于C++用户的vim配置
+vim configuration of C++ developer
 
 # edit
 
@@ -14,8 +14,6 @@
 ![](image/vim-gdb.png)
 
 ### Dependencies
-Compile Vim with `--enable-pythoninterp` and `--enable-rubyinterp` to enable powerful syntax completion supplied by neocomplcache.
-
 ```bash
 brew install ack ctags cscope               # OS X
 ```
@@ -89,4 +87,4 @@ sudo make install
     cmake --build . --target ycm_core --config Release
     ```
 
-Thst's it!
+That's it!

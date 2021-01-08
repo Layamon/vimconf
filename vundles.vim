@@ -11,26 +11,23 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'honza/vim-snippets'
 Plugin 'SirVer/ultisnips'
 
-" Fast editing
-Plugin 'scrooloose/nerdcommenter'
-
 " IDE features
 Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
-Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'Yggdroot/LeaderF'
-Plugin 'itchyny/lightline.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'bfrg/vim-cpp-modern'
 Plugin 'rhysd/vim-clang-format'
+Plugin 'tpope/vim-fugitive'
 
-" Other Utils
+" Schema
 Plugin 'morhetz/gruvbox'
-Plugin 'ayu-theme/ayu-vim'
 Plugin 'drewtempelmeyer/palenight.vim'
 
-" Golang
+" Golang Plugin
 " Plugin 'fatih/vim-go'
 " Plugin 'dgryski/vim-godef'
 " Plugin 'nsf/gocode'
